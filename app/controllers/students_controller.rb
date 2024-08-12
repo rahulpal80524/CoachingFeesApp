@@ -58,12 +58,15 @@ class StudentsController < ApplicationController
 
   def handle_less_payment(installment, amount_paid, remaining_amount, action_choice)
 
+    # If a student is paying the last installment but the amount remains, then an installment will be automatically created
     next_installment = installment.student.installments.where(status: 'pending')
     if next_installment.count == 1 && remaining_amount > 0 && action_choice == 'next_installment'
       installment.student.installments.create(amount: remaining_amount, paid: 0, due: remaining_amount, status: 'pending')
       installment.update(paid: amount_paid, status: 'paid', due: 0)
       return
     end
+
+
     installment.update(paid: amount_paid, status: 'paid', due: 0)
     if action_choice == 'next_installment'
       next_installment = installment.student.installments.where(status: 'pending').first

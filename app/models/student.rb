@@ -7,7 +7,7 @@ class Student < ApplicationRecord
   after_create :create_installments
 
   private
-
+  # method use for create installment records
   def create_installments
     installment_amount = total_fee / number_of_installments
     number_of_installments.times do
