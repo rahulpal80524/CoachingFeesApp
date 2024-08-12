@@ -1,0 +1,42 @@
+<!-- app/views/students/new.html.erb -->
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-header">
+      <h1 class="mb-0">Create New Student</h1>
+    </div>
+    <div class="card-body">
+      <%= form_with model: @student, local: true, class: "needs-validation" do |form| %>
+
+        <% if @student.errors.any? %>
+          <div class="alert alert-danger">
+            <h4 class="alert-heading">Please fix the following errors:</h4>
+            <ul>
+              <% @student.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="mb-3">
+          <%= form.label :name, "Student Name", class: "form-label" %>
+          <%= form.text_field :name, class: "form-control", placeholder: "Enter student's name", required: true %>
+        </div>
+
+        <div class="mb-3">
+          <%= form.label :total_fee, "Total Fee", class: "form-label" %>
+          <%= form.number_field :total_fee, step: 0.01, class: "form-control", placeholder: "Enter total fee amount", required: true %>
+        </div>
+
+        <div class="mb-3">
+          <%= form.label :number_of_installments, "Number of Installments", class: "form-label" %>
+          <%= form.number_field :number_of_installments, class: "form-control", placeholder: "Enter number of installments", required: true %>
+        </div>
+
+        <div class="mb-3">
+          <%= form.submit "Create Student", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
